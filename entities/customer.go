@@ -13,8 +13,11 @@ type Interface interface {
 }
 
 type Customer struct {
-	name   string
-	salary int
+	Name      string `csv:"first_name"` // .csv column headers
+	LastName  string `csv:"last_name"`
+	Email     string `csv:"email"`
+	Gender    string `csv:"gender"`
+	IPAndress string `csv:"ip_address"`
 }
 
 type CustomerList []Customer
@@ -24,7 +27,7 @@ func (e CustomerList) Len() int {
 }
 
 func (e CustomerList) Less(i, j int) bool {
-	return e[i].salary > e[j].salary
+	return e[i].Name > e[j].Name
 }
 
 func (e CustomerList) Swap(i, j int) {
