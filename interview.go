@@ -11,5 +11,6 @@ import (
 
 func main() {
 
+	helper.readCSVFile()
 	fmt.Printf("Go RUN")
 }
