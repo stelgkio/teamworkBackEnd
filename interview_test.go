@@ -1,1 +1,1 @@
-package customerimporter
+package main

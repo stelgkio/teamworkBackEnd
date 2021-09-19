@@ -1,35 +1,29 @@
 package entities
 
-type Interface interface {
-	// Len is the number of elements in the collection.
-	Len() int
-
-	// Less reports whether the element with
-	// index i should sort before the element with index j.
-	Less(i, j int) bool
-
-	// Swap swaps the elements with indexes i and j.
-	Swap(i, j int)
-}
-
 type Customer struct {
 	Name      string `csv:"first_name"` // .csv column headers
 	LastName  string `csv:"last_name"`
 	Email     string `csv:"email"`
 	Gender    string `csv:"gender"`
 	IPAndress string `csv:"ip_address"`
+	Domain    string
 }
 
-type CustomerList []Customer
+type ByName []Customer
 
-func (e CustomerList) Len() int {
-	return len(e)
-}
+func (a ByName) Len() int           { return len(a) }
+func (a ByName) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByName) Less(i, j int) bool { return a[i].Name < a[j].Name }
 
-func (e CustomerList) Less(i, j int) bool {
-	return e[i].Name > e[j].Name
-}
 
-func (e CustomerList) Swap(i, j int) {
-	e[i], e[j] = e[j], e[i]
-}
+type ByDomain []Customer
+
+func (a ByDomain) Len() int           { return len(a) }
+func (a ByDomain) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByDomain) Less(i, j int) bool { return a[i].Domain < a[j].Domain }
+
+type ByLastName []Customer
+
+func (a ByLastName) Len() int           { return len(a) }
+func (a ByLastName) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByLastName) Less(i, j int) bool { return a[i].LastName < a[j].LastName }
