@@ -27,9 +27,6 @@ func CsvReadFileAllLines() []entities.Customer {
 	return Customers
 }
 
-var Done = make(chan bool)
-var MGS  = make( chan entities.Customer)
-
 func NewCSVReader(csvFile *os.File)  ( *csv.Reader , error)  {
 
 	reader := csv.NewReader(bufio.NewReader(csvFile))
@@ -44,6 +41,9 @@ func OpenFile(fileName string) (*os.File ,error){
 	csvFile, err := os.Open(fileName)
 	return csvFile,err
 }
+
+var Done = make(chan bool)
+var MGS  = make( chan entities.Customer)
 
 func CsvReadFileByLine(fileName string)  {
 	 csvFile, errFile := OpenFile(fileName)
@@ -75,7 +75,6 @@ func CsvReadFileByLine(fileName string)  {
 
 		}
 		MGS <- customer
-
 	}
 	Done <- true
 
@@ -83,7 +82,7 @@ func CsvReadFileByLine(fileName string)  {
 
 func findDomain(email string ) string {
 	if strings.Count(email, "@")>1 {
-		return ""
+		return "Invalid Email Format"
 	}
 	if  len(email) > 0  && strings.Contains(email,"@"){
 		return strings.Split(email, "@")[1]

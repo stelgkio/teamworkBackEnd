@@ -20,6 +20,7 @@ func SortByDomainAndIpAddress(customer [] entities.Customer) {
 }
 
 var ArrCustomer  [] entities.Customer
+
 func Sorting() {
 	for{
 		msg := <-csvreader.MGS
