@@ -10,22 +10,14 @@ import (
 	"log"
 	"teamworkBackEnd/csvreader"
 	"teamworkBackEnd/customfiledsort"
-	"teamworkBackEnd/entities"
+
 )
 
-var arrCustomer  [] entities.Customer
-func sorting() {
-	for{
-		msg := <-csvreader.MGS
-		arrCustomer =append(arrCustomer,msg)
-		customfiledsort.SortByDomainAndIpAddress(arrCustomer)
-	}
-}
 
 func main() {
-	go csvreader.CsvReadFileByLine()
-	go sorting()
-	<-csvreader.Done
-	fmt.Println("After calling DONE")
-	log.Println(arrCustomer)
+	go csvreader.CsvReadFileByLine("customers.csv")
+	go customfiledsort.Sorting()
+	complete := <-csvreader.Done
+	fmt.Println("After calling DONE",complete)
+	log.Println(customfiledsort.ArrCustomer)
 }
