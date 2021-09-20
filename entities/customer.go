@@ -9,3 +9,5 @@ type Customer struct {
 	Domain    string
 	NumberOfCustomers int
 }
+
+
