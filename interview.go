@@ -8,16 +8,15 @@ package main
 import (
 	"fmt"
 	"log"
-	"teamworkBackEnd/csvreader"
-	"teamworkBackEnd/customfiledsort"
-
+	"teamworkBackEnd/reader"
+	"teamworkBackEnd/sort"
 )
 
 
 func main() {
-	go csvreader.CsvReadFileByLine("customers.csv")
-	go customfiledsort.Sorting()
-	complete := <-csvreader.Done
+	go reader.CsvReadFileByLine("customers.csv")
+	go sort.Sorting()
+	complete := <-reader.Done
 	fmt.Println("After calling DONE",complete)
-	log.Println(customfiledsort.ArrCustomer)
+	log.Println(sort.ArrCustomer)
 }

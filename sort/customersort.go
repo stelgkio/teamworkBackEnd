@@ -1,20 +1,20 @@
-package customfiledsort
+package sort
 
 import (
 	"sort"
-	"teamworkBackEnd/csvreader"
 	"teamworkBackEnd/entities"
+	"teamworkBackEnd/reader"
 )
 
 
-func SortByDomainAndIpAddress(customer [] entities.Customer) {
+func SortByDomainAndNumberOfCustomers(customer [] entities.Customer) {
 	sort.SliceStable(customer, func(i, j int) bool {
 		mi, mj := customer[i], customer[j]
 		switch {
 		case mi.Domain != mj.Domain:
 			return mi.Domain < mj.Domain
 		default:
-			return mi.IPAndress < mj.IPAndress
+			return mi.NumberOfCustomers < mj.NumberOfCustomers
 		}
 	})
 }
@@ -23,9 +23,9 @@ var ArrCustomer  [] entities.Customer
 
 func Sorting() {
 	for{
-		msg := <-csvreader.MGS
+		msg := <-reader.MGS
 		ArrCustomer =append(ArrCustomer,msg)
-		SortByDomainAndIpAddress(ArrCustomer)
+		SortByDomainAndNumberOfCustomers(ArrCustomer)
 	}
 }
 

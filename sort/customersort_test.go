@@ -1,8 +1,8 @@
-package customfiledsort
+package sort
 
 import (
-	"teamworkBackEnd/csvreader"
 	"teamworkBackEnd/entities"
+	"teamworkBackEnd/reader"
 	"testing"
 )
 
@@ -47,7 +47,7 @@ func TestSortByDomainAndIpAddress(t *testing.T) {
 	}
 	expectedListCustomer =append(expectedListCustomer, expcustomer2)
 
-	SortByDomainAndIpAddress(listCustomer)
+	SortByDomainAndNumberOfCustomers(listCustomer)
 
 	if expectedListCustomer[0].Domain != listCustomer[0] .Domain &&
 		expectedListCustomer[0].IPAndress != listCustomer[0] .IPAndress {
@@ -59,11 +59,11 @@ func TestSortByDomainAndIpAddress(t *testing.T) {
 func TestSorting(t *testing.T) {
 	expected := 2
 	count :=0
-	go  csvreader.CsvReadFileByLine("customerTest.csv")
+	go  reader.CsvReadFileByLine("customerTest.csv")
 	go func() {
 		for{
 			emptyCustomer := entities.Customer{}
-			testmsg := <- csvreader.MGS
+			testmsg := <- reader.MGS
 			if testmsg != emptyCustomer{
 				t.Fail()
 			}
@@ -72,7 +72,7 @@ func TestSorting(t *testing.T) {
 		if expected != count{
 			t.Fail()
 		}
-		complete := <-csvreader.Done
+		complete := <-reader.Done
 		if complete != true {
 			t.Fail()
 		}

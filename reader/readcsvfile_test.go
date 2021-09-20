@@ -1,4 +1,4 @@
-package csvreader
+package reader
 
 import (
 	"teamworkBackEnd/entities"
@@ -63,6 +63,29 @@ func TestCsvReadFileByLine (t *testing.T) {
 			t.Fail()
 		}
 	}()
+
+}
+
+func TestValidateData(t *testing.T){
+	t.Run("validate the data of the customer", func(t *testing.T) {
+		expected := true
+		customer := entities.Customer{
+			Name: "first_name" ,
+			LastName:  "last_name",
+			Email: "email" ,
+			Gender: "gender" ,
+			IPAndress: "ip_address",
+			Domain:  findDomain("email"),
+
+		}
+		if expected != validateData(customer) {
+			t.Fail()
+		}
+	})
+
+}
+
+func TestReturnNumberOfCustomersForEachDomain(t *testing.T){
 
 }
 

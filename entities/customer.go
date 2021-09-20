@@ -7,4 +7,5 @@ type Customer struct {
 	Gender    string `csv:"gender"`
 	IPAndress string `csv:"ip_address"`
 	Domain    string
+	NumberOfCustomers int
 }
